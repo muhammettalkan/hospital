@@ -1,0 +1,18 @@
+server:
+  port: 9087
+spring:
+  application:
+    name: web-01
+  datasource:
+    url: jdbc:mysql://localhost:3306/hospital?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: 985263
+    driverClassName: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  jackson:
+    date-format: dd-MM-yyyy HH:mm:ss
+    time-zone: Europe/Istanbul
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
