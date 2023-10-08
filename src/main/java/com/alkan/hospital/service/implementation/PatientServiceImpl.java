@@ -1,7 +1,9 @@
 package com.alkan.hospital.service.implementation;
 
 import com.alkan.hospital.dto.PatientDto;
+import com.alkan.hospital.dto.request.LoginRequest;
 import com.alkan.hospital.entity.Patient;
+import com.alkan.hospital.exception.LoginException;
 import com.alkan.hospital.repository.PatientRepository;
 import com.alkan.hospital.service.PatientService;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,18 @@ public class PatientServiceImpl implements PatientService {
         Patient patient = toEntity(dto);
         repository.save(patient);
         return toDto(patient);
+    }
+    @Override
+    public PatientDto login(LoginRequest request){
+        Patient patient = findByNationalId(request.username);
+        if(patient.getPassword() != request.password){
+            throw new LoginException("Username or password is incorrect");
+        }
+        return toDto(patient);
+    }
+    @Override
+    public Patient findByNationalId(String nationalId) {
+        return repository.findByNationalId(nationalId);
     }
 
 }

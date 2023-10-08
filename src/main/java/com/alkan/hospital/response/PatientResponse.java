@@ -1,12 +1,22 @@
 package com.alkan.hospital.response;
 
 import com.alkan.hospital.dto.PatientDto;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.util.List;
 
 public class PatientResponse extends BaseResponse{
 
-    public PatientDto patientDto;
-    public PatientResponse(int code, String message, PatientDto patientDto) {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PatientDto data;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<PatientDto> dataList;
+    public PatientResponse(int code, String message, PatientDto data) {
         super(code, message);
-        this.patientDto = patientDto;
+        this.data = data;
+    }
+    public PatientResponse(int code, String message, List<PatientDto> dataList) {
+        super(code, message);
+        this.dataList = dataList;
     }
 }

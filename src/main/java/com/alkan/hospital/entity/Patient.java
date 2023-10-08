@@ -12,6 +12,7 @@ public class Patient {
     private String firstName;
     private String lastName;
     private String nationalId;
+    private String password;
     @OneToMany(mappedBy = "patient")
     private List<Report> reportList;
 
@@ -55,6 +56,13 @@ public class Patient {
 
     public void setNationalId(String nationalId) {
         this.nationalId = nationalId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<Report> getReportList() {

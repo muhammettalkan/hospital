@@ -1,5 +1,6 @@
 package com.alkan.hospital.dto;
 
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,7 +9,10 @@ public class LaborDto implements Serializable {
     private int id;
     private String firstName;
     private String lastName;
+    @Size(min = 7,max = 7,message = "Hospital id must be 7 characters")
     private int hospitalId;
+    @Size(min = 6,max = 6,message = "Password must be 6 characters")
+    private int password;
     private List<ReportDto> reportDtoList;
 
     public LaborDto() {
@@ -52,6 +56,14 @@ public class LaborDto implements Serializable {
 
     public void setHospitalId(int hospitalId) {
         this.hospitalId = hospitalId;
+    }
+
+    public int getPassword() {
+        return password;
+    }
+
+    public void setPassword(int password) {
+        this.password = password;
     }
 
     public List<ReportDto> getReportDtoList() {
