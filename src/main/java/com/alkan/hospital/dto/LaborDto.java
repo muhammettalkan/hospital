@@ -12,7 +12,7 @@ public class LaborDto implements Serializable {
     @Size(min = 7,max = 7,message = "Hospital id must be 7 characters")
     private int hospitalId;
     @Size(min = 6,max = 6,message = "Password must be 6 characters")
-    private int password;
+    private String password;
     private List<ReportDto> reportDtoList;
 
     public LaborDto() {
@@ -58,11 +58,11 @@ public class LaborDto implements Serializable {
         this.hospitalId = hospitalId;
     }
 
-    public int getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(int password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

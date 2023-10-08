@@ -62,7 +62,7 @@ public class LaborServiceImpl implements LaborService {
     }
     @Override
     public Labor findByHospitalId(String hospitalId) {
-        return repository.findByHospitalId(hospitalId);
+        return repository.findByHospitalId(Integer.parseInt(hospitalId));
     }
 
 
