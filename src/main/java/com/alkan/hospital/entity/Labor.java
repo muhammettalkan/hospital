@@ -1,8 +1,8 @@
 package com.alkan.hospital.entity;
 
+import com.alkan.hospital.exception.DigitExceptionForHospitalId;
 import jakarta.persistence.*;
 
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -13,9 +13,7 @@ public class Labor {
     private int id;
     private String firstName;
     private String lastName;
-    @Size(min = 7,max = 7,message = "Hospital id must be 7 characters")
     private int hospitalId;
-    @Size(min = 6,max = 6,message = "Password must be 6 characters")
     private String password;
     @OneToMany(mappedBy = "labor")
     private List<Report> reportList;
@@ -61,6 +59,7 @@ public class Labor {
     }
 
     public void setHospitalId(int hospitalId) {
+        if (String.valueOf(hospitalId).length() != 7) throw new DigitExceptionForHospitalId("Hospital Id must be 7 characters");
         this.hospitalId = hospitalId;
     }
 

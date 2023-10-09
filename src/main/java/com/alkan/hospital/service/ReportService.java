@@ -18,4 +18,6 @@ public interface ReportService {
     ReportDto update(int id, UpdateRequest request);
     List<ReportDto> findAll();
     String delete(int id);
+
+    String randomPhotoUrl();
 }

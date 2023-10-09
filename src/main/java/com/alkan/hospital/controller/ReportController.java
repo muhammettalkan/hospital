@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/report")
+@RequestMapping("/reports")
 public class ReportController {
 
     private final ReportService service;
@@ -21,7 +21,7 @@ public class ReportController {
     public ResponseEntity<ReportResponse> create(@RequestBody ReportDto dto){
         return ResponseEntity.ok(new ReportResponse(200, "Report created successfully", service.create(dto)));
     }
-    @GetMapping("/findByPatient/{firstName}/{lastName}")
+    @GetMapping("/find-by-patient-name/{firstName}/{lastName}")
     public ResponseEntity<ReportResponse> findByPatient(@PathVariable String firstName, @PathVariable String lastName){
         return ResponseEntity.ok(new ReportResponse(200, "Reports found successfully", service.findByPatient(firstName, lastName)));
     }
@@ -29,7 +29,7 @@ public class ReportController {
     public ResponseEntity<ReportResponse> findByPatientNationalId(@RequestParam String nationalId){
         return ResponseEntity.ok(new ReportResponse(200, "Reports found successfully", service.findByPatientNationalId(nationalId)));
     }
-    @GetMapping("/findByLabor/{firstName}/{lastName}")
+    @GetMapping("/find-by-labor-name/{firstName}/{lastName}")
     public ResponseEntity<ReportResponse> findByLabor(@PathVariable String firstName, @PathVariable String lastName){
         return ResponseEntity.ok(new ReportResponse(200, "Reports found successfully", service.findByLabor(firstName, lastName)));
     }
@@ -41,7 +41,7 @@ public class ReportController {
     public ResponseEntity<ReportResponse> update(@RequestParam int id, @RequestBody UpdateRequest request){
         return ResponseEntity.ok(new ReportResponse(200, "Report updated successfully", service.update(id, request)));
     }
-    @GetMapping("/find-all")
+    @GetMapping()
     public ResponseEntity<ReportResponse> findAll(){
         return ResponseEntity.ok(new ReportResponse(200, "Reports found successfully", service.findAll()));
     }

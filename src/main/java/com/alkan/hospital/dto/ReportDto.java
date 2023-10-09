@@ -1,5 +1,7 @@
 package com.alkan.hospital.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;

@@ -1,6 +1,7 @@
 package com.alkan.hospital.dto;
 
-import javax.validation.constraints.Size;
+import com.alkan.hospital.exception.DigitExceptionForHospitalId;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,9 +10,7 @@ public class LaborDto implements Serializable {
     private int id;
     private String firstName;
     private String lastName;
-    @Size(min = 7,max = 7,message = "Hospital id must be 7 characters")
     private int hospitalId;
-    @Size(min = 6,max = 6,message = "Password must be 6 characters")
     private String password;
     private List<ReportDto> reportDtoList;
 
@@ -55,6 +54,7 @@ public class LaborDto implements Serializable {
     }
 
     public void setHospitalId(int hospitalId) {
+        if (String.valueOf(hospitalId).length() != 7) throw new DigitExceptionForHospitalId("Hospital Id must be 7 characters");
         this.hospitalId = hospitalId;
     }
 

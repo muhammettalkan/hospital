@@ -7,17 +7,21 @@ import com.alkan.hospital.exception.DigitExceptionForHospitalId;
 import com.alkan.hospital.exception.LoginException;
 import com.alkan.hospital.repository.LaborRepository;
 import com.alkan.hospital.service.LaborService;
+import com.alkan.hospital.service.ReportService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class LaborServiceImpl implements LaborService {
 
     private final LaborRepository repository;
+    private final ReportService reportService;
 
-    public LaborServiceImpl(LaborRepository repository) {
+    public LaborServiceImpl(LaborRepository repository, ReportService reportService) {
         this.repository = repository;
+        this.reportService = reportService;
     }
     public Labor findById(int id){
         return repository.findById(id).get();
@@ -31,6 +35,10 @@ public class LaborServiceImpl implements LaborService {
             throw new DigitExceptionForHospitalId("Hospital id must be 7 characters");
         }
         labor.setHospitalId(dto.getHospitalId());
+        labor.setPassword(dto.getPassword());
+        if (dto.getReportDtoList() != null) {
+            labor.setReportList(dto.getReportDtoList().stream().map(reportService::toEntity).toList());
+        }
         return labor;
     }
     public LaborDto toDto(Labor labor){
@@ -39,6 +47,10 @@ public class LaborServiceImpl implements LaborService {
         laborDto.setFirstName(labor.getFirstName());
         laborDto.setLastName(labor.getLastName());
         laborDto.setHospitalId(labor.getHospitalId());
+        laborDto.setPassword(labor.getPassword());
+        if (labor.getReportList() != null) {
+            laborDto.setReportDtoList(labor.getReportList().stream().map(reportService::toDto).toList());
+        }
         return laborDto;
     }
 
@@ -54,15 +66,19 @@ public class LaborServiceImpl implements LaborService {
 
     @Override
     public LaborDto login(LoginRequest request){
-        Labor labor = findByHospitalId(request.username);
-        if(String.valueOf(labor.getPassword()) != request.password){
+        LaborDto laborDto = findByHospitalId(request.username);
+        if(String.valueOf(laborDto.getPassword()) != request.password){
             throw new LoginException("Username or password is incorrect");
         }
-        return toDto(labor);
+        return laborDto;
     }
     @Override
-    public Labor findByHospitalId(String hospitalId) {
-        return repository.findByHospitalId(Integer.parseInt(hospitalId));
+    public LaborDto findByHospitalId(String hospitalId) {
+        Labor labor = repository.findByHospitalId(Integer.parseInt(hospitalId));
+        if (labor == null){
+            throw new NoSuchElementException("There's no labor with this hospital id");
+        }
+        return toDto(labor);
     }
 
 

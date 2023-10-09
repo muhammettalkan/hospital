@@ -5,17 +5,18 @@ import com.alkan.hospital.dto.request.LoginRequest;
 import com.alkan.hospital.response.PatientResponse;
 import com.alkan.hospital.service.PatientService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("/patients")
 public class PatientController {
     private final PatientService service;
     public PatientController(PatientService service) {
         this.service = service;
+    }
+    @GetMapping
+    public ResponseEntity<PatientResponse> findAll(){
+        return ResponseEntity.ok(new PatientResponse(200, "Patient found successfully", service.findAll()));
     }
     @PostMapping("/create")
     public ResponseEntity<PatientResponse> create(@RequestBody PatientDto patientDto){
@@ -24,6 +25,10 @@ public class PatientController {
     @PostMapping("/login")
     public ResponseEntity<PatientResponse> login(@RequestBody LoginRequest request){
         return ResponseEntity.ok(new PatientResponse(200, "Patient logged in successfully", service.login(request)));
+    }
+    @GetMapping("/national-id")
+    public ResponseEntity<PatientResponse> findByNationalId(@RequestParam String nationalId){
+        return ResponseEntity.ok(new PatientResponse(200, "Patient found successfully", service.findByNationalId(nationalId)));
     }
 
 }

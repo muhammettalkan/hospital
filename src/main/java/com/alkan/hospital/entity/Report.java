@@ -1,5 +1,6 @@
 package com.alkan.hospital.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,6 @@ public class Report {
     private String diagnosis;
     private String diagnosisDetail;
     private LocalDateTime date;
-    @Lob
     private String reportPhotoUrl;
     @ManyToOne
     private Patient patient;

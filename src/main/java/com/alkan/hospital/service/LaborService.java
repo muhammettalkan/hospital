@@ -12,10 +12,7 @@ public interface LaborService {
     LaborDto create(LaborDto dto);
     Labor toEntity(LaborDto dto);
     LaborDto toDto(Labor labor);
-
     List<LaborDto> findAll();
-
     LaborDto login(LoginRequest request);
-
-    Labor findByHospitalId(String hospitalId);
+    LaborDto findByHospitalId(String hospitalId);
 }

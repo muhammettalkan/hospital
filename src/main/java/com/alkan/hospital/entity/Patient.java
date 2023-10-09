@@ -1,5 +1,6 @@
 package com.alkan.hospital.entity;
 
+import com.alkan.hospital.exception.NationalIdException;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -55,6 +56,7 @@ public class Patient {
     }
 
     public void setNationalId(String nationalId) {
+        if (nationalId.length() != 11) throw new NationalIdException("National Id must be 11 characters");
         this.nationalId = nationalId;
     }
 
