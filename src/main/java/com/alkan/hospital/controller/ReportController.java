@@ -51,4 +51,13 @@ public class ReportController {
         service.delete(id);
         return "Report deleted successfully";
     }
+    @GetMapping("/find-by-id")
+    public ResponseEntity<ReportResponse> findById(@RequestParam String id){
+        return ResponseEntity.ok(new ReportResponse(200, "Report found successfully", service.findReportById(id)));
+    }
+    @GetMapping("/photo-url")
+    public String getReportPhotoUrl(){
+        return service.randomPhotoUrl();
+    }
+
 }

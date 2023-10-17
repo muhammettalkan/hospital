@@ -28,6 +28,11 @@ public class ReportServiceImpl implements ReportService {
     public Report findById(int id) {
         return reportRepository.findById(id).get();
     }
+    @Override
+    public ReportDto findReportById(String id){
+        Report report = findById(Integer.parseInt(id));
+        return toDto(report);
+    }
     public Report toEntity(ReportDto dto){
         Report report = new Report();
         report.setId(dto.getId());

@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface ReportService {
     Report findById(int id);
+
+    ReportDto findReportById(String id);
+
     Report toEntity(ReportDto dto);
     ReportDto toDto(Report report);
     ReportDto create(ReportDto dto);
