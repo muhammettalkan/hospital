@@ -63,11 +63,15 @@ public class LaborServiceImpl implements LaborService {
     public List<LaborDto> findAll(){
         return repository.findAll().stream().map(this::toDto).toList();
     }
+    @Override
+    public LaborDto findLaborById(String id){
+        return toDto(findById(Integer.parseInt(id)));
+    }
 
     @Override
     public LaborDto login(LoginRequest request){
         LaborDto laborDto = findByHospitalId(request.username);
-        if(String.valueOf(laborDto.getPassword()) != request.password){
+        if(laborDto.getPassword() != request.password){
             throw new LoginException("Username or password is incorrect");
         }
         return laborDto;
@@ -78,6 +82,16 @@ public class LaborServiceImpl implements LaborService {
         if (labor == null){
             throw new NoSuchElementException("There's no labor with this hospital id");
         }
+        return toDto(labor);
+    }
+    @Override
+    public LaborDto update(int id, LaborDto dto){
+        Labor labor = findById(id);
+        labor.setFirstName(dto.getFirstName());
+        labor.setLastName(dto.getLastName());
+        labor.setHospitalId(dto.getHospitalId());
+        labor.setPassword(dto.getPassword());
+        repository.save(labor);
         return toDto(labor);
     }
 

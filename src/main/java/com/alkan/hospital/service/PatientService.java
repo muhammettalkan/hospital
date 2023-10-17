@@ -9,10 +9,15 @@ import java.util.List;
 public interface PatientService {
 
     Patient findById(int id);
+
+    PatientDto findPatientById(String id);
+
     Patient toEntity(PatientDto dto);
     PatientDto toDto(Patient entity);
     PatientDto create(PatientDto dto);
     PatientDto login(LoginRequest request);
     PatientDto findByNationalId(String nationalId);
     List<PatientDto> findAll();
+
+    PatientDto update(int id, PatientDto dto);
 }

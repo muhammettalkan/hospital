@@ -7,6 +7,7 @@ import com.alkan.hospital.service.PatientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/patients")
 public class PatientController {
@@ -29,6 +30,14 @@ public class PatientController {
     @GetMapping("/national-id")
     public ResponseEntity<PatientResponse> findByNationalId(@RequestParam String nationalId){
         return ResponseEntity.ok(new PatientResponse(200, "Patient found successfully", service.findByNationalId(nationalId)));
+    }
+    @PutMapping("{id}/update")
+    public ResponseEntity<PatientResponse> update(@PathVariable int id, @RequestBody PatientDto patientDto){
+        return ResponseEntity.ok(new PatientResponse(200, "Patient updated successfully", service.update(id, patientDto)));
+    }
+    @GetMapping("/find-by-id")
+    public ResponseEntity<PatientResponse> findPatientById(@RequestParam String id){
+        return ResponseEntity.ok(new PatientResponse(200, "Patient found successfully", service.findPatientById(id)));
     }
 
 }

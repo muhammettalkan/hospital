@@ -7,6 +7,7 @@ import com.alkan.hospital.service.LaborService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/labors")
 public class LaborController {
@@ -32,6 +33,14 @@ public class LaborController {
     @GetMapping("/hospital-id")
     public ResponseEntity<LaborResponse> findById(@RequestParam String id){
         return ResponseEntity.ok(new LaborResponse(200, "Labor found successfully", service.findByHospitalId(id)));
+    }
+    @PutMapping("{id}/update")
+    public ResponseEntity<LaborResponse> update(@PathVariable int id, @RequestBody LaborDto dto){
+        return ResponseEntity.ok(new LaborResponse(200, "Labor updated successfully", service.update(id, dto)));
+    }
+    @GetMapping("/find-by-id")
+    public ResponseEntity<LaborResponse> findLaborById(@RequestParam String id){
+        return ResponseEntity.ok(new LaborResponse(200, "Labor found successfully", service.findLaborById(id)));
     }
 
 }

@@ -13,6 +13,10 @@ public interface LaborService {
     Labor toEntity(LaborDto dto);
     LaborDto toDto(Labor labor);
     List<LaborDto> findAll();
+    LaborDto findLaborById(String id);
+
     LaborDto login(LoginRequest request);
     LaborDto findByHospitalId(String hospitalId);
+
+    LaborDto update(int id, LaborDto dto);
 }

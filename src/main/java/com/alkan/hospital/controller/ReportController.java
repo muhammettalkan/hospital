@@ -7,6 +7,7 @@ import com.alkan.hospital.service.ReportService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/reports")
 public class ReportController {

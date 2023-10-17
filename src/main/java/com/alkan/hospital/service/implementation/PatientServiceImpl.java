@@ -24,6 +24,11 @@ public class PatientServiceImpl implements PatientService {
     public Patient findById(int id){
         return repository.findById(id).get();
     }
+    @Override
+    public PatientDto findPatientById(String id){
+        Patient patient = findById(Integer.parseInt(id));
+        return toDto(patient);
+    }
     public Patient toEntity(PatientDto dto){
         Patient patient = new Patient();
         patient.setId(dto.getId());
@@ -56,7 +61,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public PatientDto login(LoginRequest request){
         PatientDto patientDto = findByNationalId(request.username);
-        if(patientDto.getPassword() != request.password){
+        if(patientDto.getPassword().equals(request.password) == false){
             throw new LoginException("Username or password is incorrect");
         }
         return patientDto;
@@ -70,6 +75,16 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<PatientDto> findAll(){
         return repository.findAll().stream().map(this::toDto).toList();
+    }
+    @Override
+    public PatientDto update(int id, PatientDto dto){
+        Patient patient = findById(id);
+        patient.setFirstName(dto.getFirstName());
+        patient.setLastName(dto.getLastName());
+        patient.setNationalId(dto.getNationalId());
+        patient.setPassword(dto.getPassword());
+        repository.save(patient);
+        return toDto(patient);
     }
 
 }
