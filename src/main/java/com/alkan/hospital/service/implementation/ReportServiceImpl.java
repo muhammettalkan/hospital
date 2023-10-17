@@ -7,6 +7,7 @@ import com.alkan.hospital.repository.ReportRepository;
 import com.alkan.hospital.service.LaborService;
 import com.alkan.hospital.service.PatientService;
 import com.alkan.hospital.service.ReportService;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class ReportServiceImpl implements ReportService {
     private final ReportRepository reportRepository;
     private final LaborService laborService;
     private final PatientService patientService;
-    public ReportServiceImpl(ReportRepository reportRepository, @Lazy LaborService laborService,@Lazy PatientService patientService) {
+    public ReportServiceImpl(ReportRepository reportRepository, @Lazy LaborService laborService, @Lazy PatientService patientService) {
         this.reportRepository = reportRepository;
         this.laborService = laborService;
         this.patientService = patientService;
@@ -52,9 +53,11 @@ public class ReportServiceImpl implements ReportService {
         dto.setDiagnosis(report.getDiagnosis());
         dto.setDiagnosisDetail(report.getDiagnosisDetail());
         dto.setDate(report.getDate());
-        dto.setReportPhotoUrl(report.getReportPhotoUrl());
+        dto.setReportPhotoUrl(randomPhotoUrl());
         dto.setPatientId(report.getPatient().getId());
         dto.setLaborId(report.getLabor().getId());
+        dto.setLaborFullName(report.getLabor().getFirstName() + " " + report.getLabor().getLastName());
+        dto.setPatientFullName(report.getPatient().getFirstName() + " " + report.getPatient().getLastName());
         return dto;
     }
     public ReportDto create(ReportDto dto){

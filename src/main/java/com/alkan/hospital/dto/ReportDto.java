@@ -1,18 +1,21 @@
 package com.alkan.hospital.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class ReportDto implements Serializable {
     private int id;
     private String fileNumber;
     private String diagnosis;
     private String diagnosisDetail;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime creationDate;
     private String reportPhotoUrl;
+    private String patientFullName;
+    private String laborFullName;
     private int patientId;
     private int laborId;
 
@@ -81,5 +84,21 @@ public class ReportDto implements Serializable {
 
     public void setLaborId(int laborId) {
         this.laborId = laborId;
+    }
+
+    public String getPatientFullName() {
+        return patientFullName;
+    }
+
+    public void setPatientFullName(String patientFullName) {
+        this.patientFullName = patientFullName;
+    }
+
+    public String getLaborFullName() {
+        return laborFullName;
+    }
+
+    public void setLaborFullName(String laborFullName) {
+        this.laborFullName = laborFullName;
     }
 }
